@@ -7,14 +7,12 @@ var worker = new SharedWorker('shared_worker.js');
 var port = worker.port;
 
 
-
 // Listen for messages from the shared worker
-worker.port.onmessage = handleMessageFromSharedWorker;
+port.onmessage = function(event) {
+  console.log('Message received in from shared worker:', event.data);
+  
+};
 
-// Function to handle messages received from the shared worker
-function handleMessageFromSharedWorker(event) {
-  console.log('Message received in tab:', event.data);
-}
 function sendRandomMessage() {
   const randomStr = generateRandomString(); // Function to generate random string
   port.postMessage('Hello from main script ' + randomStr);

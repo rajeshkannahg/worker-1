@@ -9,11 +9,11 @@ onconnect = function(e) {
   port.onmessage = function(event) {
     // Log the received message
     console.log('Message received in shared worker:', + workerName + event.data);
-    
+    port.postMessage('message from shared worker to specific port' + event.data);
     // Broadcast the message to all connected tabs
     self.clients.matchAll().then(clients => {
       clients.forEach(client => {
-        client.postMessage(event.data);
+        client.postMessage('message from shared worker to all ports' + event.data);
       });
     });
   };
