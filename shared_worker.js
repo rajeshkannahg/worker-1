@@ -11,11 +11,7 @@ onconnect = function(e) {
       console.log('Message received in shared worker:1', event.data);
       // Echo the message back to the main script
       port.postMessage("ports number" + e.ports.length)
-      self.clients.matchAll().then(clients => {
-        clients.forEach(client => {
-          client.postMessage('Echo from shared worker1'+ event.data);
-        });
-      });
+      port.postMessage('message is' + event.data);
     };
   
     // Let the main script know that the shared worker is ready
