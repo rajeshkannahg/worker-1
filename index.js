@@ -22,7 +22,7 @@ worker.port.onmessage = function(event) {
 
 function sendRandomMessage() {
   const randomStr = generateRandomString(); // Function to generate random string
-  port.postMessage(port.postMessage('Hello from main script 1 ' + randomStr));
+  port.postMessage('Hello from main script 1 ' + randomStr);
 }
 
 function generateRandomString() {
