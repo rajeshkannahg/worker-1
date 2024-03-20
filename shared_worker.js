@@ -12,7 +12,16 @@ onconnect = function(e) {
       // Echo the message back to the main script
       port.postMessage("ports number" + e.ports.length)
       port.postMessage('message is' + event.data);
-    };
+      // Send a message to all connected tabs
+    self.clients.matchAll().then(clients => {
+      clients.forEach(client => {
+        client.postMessage('Message from shared worker: ' + event.data);
+      });
+    });
+  };
+
+    port.start(); // Start listening for messages
+    
   
     // Let the main script know that the shared worker is ready
     port.postMessage('Shared worker1 connected');
