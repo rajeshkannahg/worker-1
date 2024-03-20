@@ -1,25 +1,26 @@
 // shared_worker.js
 var workerName = generateRandomString();
 // Listen for connections
-const browserInstances = [];
+const connectedTabs = [];
 
 onconnect = function(e) {
   // Get the port for this connection
   const port = e.ports[0];
-  browserInstances.push(port);
+  connectedTabs.push(port);
   // Event listener for messages from the main page
   port.onmessage = function(event) {
     // Log the received message
     console.log('Message received in shared worker:', + workerName + event.data);
-    port.postMessage('message from shared worker to specific port' + event.data);
+    port.postMessage('message from shared worker'+ workerName+ 'to specific port' + event.data);
     // Broadcast the message to all connected tabs
-    browserInstances.forEach(instance => {
-      instance.postMessage('message from shared worker to all tabs' + event.data);
+    connectedTabs.forEach(instance => {
+      instance.postMessage('message from shared worker' + workerName+ 'to all tabs' + event.data);
     });
   };
 
   // Start listening for messages
   port.start();
+  port.postMessage("shared worker" + workerName + "connected");
 };
   
   function generateRandomString() {

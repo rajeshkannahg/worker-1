@@ -7,15 +7,9 @@ var worker = new SharedWorker('shared_worker.js');
 var port = worker.port;
 
 
-// Listen for messages from the shared worker
-port.onmessage = function(event) {
-  console.log('Message received in specific port from shared worker:', event.data);
-  console.log('break');
-};
-
 // Listen for messages sent directly from the shared worker using client.postMessage
 worker.port.onmessage = function(event) {
-  console.log('Message received in the tab from shared worker:', event.data);
+  console.log(event.data);
 };
 
 function sendRandomMessage() {
