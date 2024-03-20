@@ -11,7 +11,7 @@ onconnect = function(e) {
       console.log('Message received in shared worker:1', event.data);
       // Echo the message back to the main script
       port.postMessage('Echo from shared worker:1 ' + event.data);
-      port.postMessage('Origin of the shared worker1:'+ self.origin);
+      port.postMessage("ports number" + e.ports.length)
     };
   
     // Let the main script know that the shared worker is ready
